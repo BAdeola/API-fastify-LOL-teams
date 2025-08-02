@@ -1,4 +1,5 @@
 import fastify from "fastify";
+import cors from "@fastify/cors";
 
 const server = fastify({ logger: true });
 const port = Number(process.env.PORT) || 3000;
@@ -40,6 +41,11 @@ const players = [
     { id: 19, nick: "ProDelta", name: "Matheus Silva", age: 22, country: "br", role: "SUP", team: "paiN" },
     { id: 20, nick: "Tracer", name: "Lucas Silva", age: 20, country: "br", role: "BOT", team: "paiN" }
 ];
+
+server.register(cors, {
+    origin: "*",
+    methods: ["GET"],
+});
 
 server.get("/teams", async (request, reply) => {
     reply.type("application/json").code(200);
